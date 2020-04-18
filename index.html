@@ -1,0 +1,186 @@
+<html ng-app="covid_tracker">
+<head><title>COVID-19 Tracker India</title>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+  <script type="text/javascript" src="scripts/angular.min.js">
+  </script>
+  <script type="text/javascript" src="scripts/app.js">
+  </script>
+  <script type="text/javascript" src="scripts/covid_service.js">
+  </script>
+  <script type="text/javascript" src="scripts/bootstrap.min.js">
+  </script>
+  <script type="text/javascript" src="scripts/bootstrap.bundle.min.js">
+  </script>
+  <script src="https://cdn.zingchart.com/zingchart.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+  <script src="scripts/statelist.js"></script>
+  <link rel="stylesheet" href="css/bootstrap.css"/>
+  <link rel="stylesheet" href="css/bootstrap-grid.css"/>
+  <link rel="stylesheet" href="css/bootstrap-reboot.css"/>
+  <link rel="stylesheet" href="css/main_style.css"/>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css"/>
+  <style>
+    .chart--container {
+      min-height: 530px;
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+<body  ng-controller="MainController as ctrl">
+  <nav class="navbar fixed-top navbar-light bg-light">
+  <a class="navbar-brand">COVID-19 Tracker INDIA</a>
+  </nav>
+
+  <div class="container">
+    <div class="row">
+      <div class="col summary_card" style="background-color:#fffb8f">
+        <img src="images/virus.png" height=70 width=70>
+        Total Cases: {{ctrl.summary.total}}
+      </div>
+      <div class="col summary_card" style="background-color:#b9ff6e">
+        <img src="images/virus.png" height=70 width=70>
+        Total Recovered: {{ctrl.summary.discharged}}
+      </div>
+      <div class="col summary_card" style="background-color:#ff9f8a">
+        <img src="images/virus.png" height=70 width=70>
+        Total Deaths: {{ctrl.summary.deaths}}
+      </div>
+    </div>
+    <div class="row" style="margin-bottom:20px;border:solid 2px; border-radius:5px;">
+      <div class="col" style="background-color:white">
+        <center>
+        Updated on: {{ctrl.lastRefreshed}}
+        </center>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="container" style="margin-bottom:10px">
+  <div class="row">
+    <div class="col" style="background-color:white;border:solid 2px; border-radius:5px;magin:10px;">
+
+      <div class="container">
+        <h2>State-wise distribution</h2>
+        <table class="table table-responsive table-striped table-hover table-sm" id="statetable">
+        <thead>
+          <tr>
+            <th>State</th>
+            <th>Confirmed Cases (Indian)</th>
+            <th>Confirmed Cases (Foreign)</th>
+            <th>Total Recovered Cases</th>
+            <th>Total Deaths</th>
+            <th>Total Confirmed Cases</th>
+          </tr>
+        </thead>
+        <tbody id="tablebody">
+          <tr ng-repeat="state in ctrl.coviddata">
+            <td>{{state.loc}}</td>
+            <td>{{state.confirmedCasesIndian}}</td>
+            <td>{{state.confirmedCasesForeign}}</td>
+            <td>{{state.discharged}}</td>
+            <td>{{state.deaths}}</td>
+            <td>{{state.totalConfirmed}}</td>
+          </tr>
+        </tbody>
+        </table>
+      </div>
+
+    </div>
+
+    <div class="col-4"  id="mapcontainer"  style="background-color:white;border:solid 2px; border-radius:5px;">
+      <div><center>Heat Map for total cases</center></div>
+      <div id="myChart" class="chart--container"></div>
+    </div>
+  </div>
+  </div>
+
+
+  <script type="text/javascript">
+
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    function show_map(statedata){
+      ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9", "b55b025e438fa8a98e32482b5f768ff5"];
+      let chartConfig = {
+        shapes: [{
+            type: 'zingchart.maps',
+            options: {
+              bbox: [67.177, 36.494, 98.403, 6.965], // get bbox from zingchart.maps.getItemInfo('world-countries','ind');
+              ignore: ['IND'], // ignore India because we are rendering a more specific India map below
+              name: 'world.countries',
+              panning: false, // turn of zooming. Doesn't work with bounding box
+              style: {
+                tooltip: {
+                  borderColor: '#000',
+                  borderWidth: '2px',
+                  fontSize: '18px'
+                },
+                controls: {
+                  visible: false // turn of zooming. Doesn't work with bounding box
+                },
+                hoverState: {
+                  alpha: .28
+                }
+              },
+              zooming: false // turn of zooming. Doesn't work with bounding box
+            }
+          },
+          {
+            type: 'zingchart.maps',
+            options: {
+              name: 'ind',
+              panning: false, // turn of zooming. Doesn't work with bounding box
+              zooming: false,
+              scrolling: false,
+              style: {
+                tooltip: {
+                  borderColor: '#000',
+                  borderWidth: '2px',
+                  fontSize: '18px'
+                },
+                borderColor: '#000',
+                borderWidth: '2px',
+                controls: {
+                  visible: false, // turn of zooming. Doesn't work with bounding box
+
+                },
+                hoverState: {
+                  alpha: .80
+                },
+                items: statedata,
+                label: { // text displaying. Like valueBox
+                  fontSize: '15px',
+                  visible: false
+                }
+              },
+              zooming: false // turn of zooming. Doesn't work with bounding box
+            }
+          }
+        ]
+      }
+
+      zingchart.loadModules('maps,maps-ind');
+      zingchart.render({
+        id: 'myChart',
+        data: chartConfig,
+        height: '100%',
+        width: '100%',
+      });
+    }
+  </script>
+</body>
+</html>

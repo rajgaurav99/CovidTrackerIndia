@@ -1,0 +1,12 @@
+{
+  "name": "covid_india_tacker",
+  "version": "1.0.0",
+  "description": "Covid 19 tracker for India",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+	"start":"index.html"
+  },
+  "author": "Gaurav Kumar Singh",
+  "license": "ISC"
+}
