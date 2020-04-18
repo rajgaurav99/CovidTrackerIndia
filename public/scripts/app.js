@@ -20,7 +20,7 @@
            text: statename+': '+totalConfirmed,
            backgroundColor: 'white'
          },
-         backgroundColor: '#'+(parseInt('ffe24f', 16)-totalConfirmed*4).toString(16),
+         backgroundColor: "rgba(255, 99, 71,"+(0.2+totalConfirmed/4000)+")" ,
          label: {
            visible: false
          }

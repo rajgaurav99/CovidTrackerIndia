@@ -1,5 +1,7 @@
 <html ng-app="covid_tracker">
 <head><title>COVID-19 Tracker India</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="/images/favicon.png">
   <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
   <script type="text/javascript" src="/scripts/angular.min.js">
   </script>
@@ -15,6 +17,7 @@
   <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
   <script src="/scripts/statelist.js"></script>
+
   <link rel="stylesheet" href="/css/bootstrap.css"/>
   <link rel="stylesheet" href="/css/bootstrap-grid.css"/>
   <link rel="stylesheet" href="/css/bootstrap-reboot.css"/>
@@ -36,16 +39,16 @@
   <div class="container">
     <div class="row">
       <div class="col summary_card" style="background-color:#fffb8f">
-        <img src="/images/virus.png" height=70 width=70>
-        Total Cases: {{ctrl.summary.total}}
+        <center><img src="/images/virus.png" height=70 width=70><br>
+        Total Cases: {{ctrl.summary.total}}</center>
       </div>
       <div class="col summary_card" style="background-color:#b9ff6e">
-        <img src="/images/virus.png" height=70 width=70>
-        Total Recovered: {{ctrl.summary.discharged}}
+        <center><img src="/images/virus.png" height=70 width=70><br>
+        Total Recovered: {{ctrl.summary.discharged}}</center>
       </div>
       <div class="col summary_card" style="background-color:#ff9f8a">
-        <img src="/images/virus.png" height=70 width=70>
-        Total Deaths: {{ctrl.summary.deaths}}
+        <center><img src="/images/virus.png" height=70 width=70><br>
+        Total Deaths: {{ctrl.summary.deaths}}</center>
       </div>
     </div>
     <div class="row" style="margin-bottom:20px;border:solid 2px; border-radius:5px;">
@@ -60,29 +63,24 @@
 
   <div class="container" style="margin-bottom:10px">
   <div class="row">
-    <div class="col" style="background-color:white;border:solid 2px; border-radius:5px;magin:10px;">
-
+    <div class="col" style="background-color:white;border:solid 2px; border-radius:5px;magin:10px;padding-top:10px;padding-bottom:10px;">
       <div class="container">
         <h2>State-wise distribution</h2>
-        <table class="table table-responsive table-striped table-hover table-sm" id="statetable">
-        <thead>
+        <table class="table table-hover table-responsive table-sm table-borderless" style="font-size:0.9em" id="statetable">
+          <thead>
           <tr>
-            <th>State</th>
-            <th>Confirmed Cases (Indian)</th>
-            <th>Confirmed Cases (Foreign)</th>
-            <th>Total Recovered Cases</th>
-            <th>Total Deaths</th>
-            <th>Total Confirmed Cases</th>
+            <th bgcolor="#f2f7ff">State/UT</th>
+            <th bgcolor="#f2f7ff"><font color="#6eeb34">Rcvrd</font></th>
+            <th bgcolor="#f2f7ff"><font color="#ff0303">Dcsd</font></th>
+            <th bgcolor="#f2f7ff"><font color="#036cff">Cnfmd</font></th>
           </tr>
         </thead>
         <tbody id="tablebody">
           <tr ng-repeat="state in ctrl.coviddata">
             <td>{{state.loc}}</td>
-            <td>{{state.confirmedCasesIndian}}</td>
-            <td>{{state.confirmedCasesForeign}}</td>
-            <td>{{state.discharged}}</td>
-            <td>{{state.deaths}}</td>
-            <td>{{state.totalConfirmed}}</td>
+            <td align="center">{{state.discharged}}</td>
+            <td align="center">{{state.deaths}}</td>
+            <td align="center">{{state.totalConfirmed}}</td>
           </tr>
         </tbody>
         </table>
@@ -90,20 +88,12 @@
 
     </div>
 
-    <div class="col-4"  id="mapcontainer"  style="background-color:white;border:solid 2px; border-radius:5px;">
+    <div class="col"  id="mapcontainer"  style="background-color:white;border:solid 2px; border-radius:5px;padding-top:10px">
       <div><center>Heat Map for total cases</center></div>
       <div id="myChart" class="chart--container"></div>
     </div>
   </div>
   </div>
-
-
-  <script type="text/javascript">
-
-  </script>
-
-
-
 
 
 
