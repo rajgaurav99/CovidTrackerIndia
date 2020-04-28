@@ -38,6 +38,7 @@
      ctrl.lastRefreshed=date.toString();
      $(document).ready(function () {
     $('#statetable').DataTable({
+      "order": [[3,"desc"]],
     "scrollY": "50vh",
     "scrollCollapse": true,
     });
