@@ -22,10 +22,10 @@
   </style>
 </head>
 <body  ng-controller="MainController as ctrl">
-  <nav class="navbar fixed-top navbar-light bg-light">
+  <nav class="navbar navbar-light bg-light">
   <a class="navbar-brand">COVID-19 Tracker INDIA</a>
+  <small>Updated on: {{ctrl.lastRefreshed}}</small>
   </nav>
-
   <div class="container">
     <div class="row">
       <div class="col summary_card" style="background-color:#fffb8f">
@@ -41,19 +41,12 @@
         Total Deaths: {{ctrl.summary.deaths}}</center>
       </div>
     </div>
-    <div class="row" style="margin-bottom:20px;border:solid 2px; border-radius:5px;">
-      <div class="col" style="background-color:white">
-        <center>
-        Updated on: {{ctrl.lastRefreshed}}
-        </center>
-      </div>
-    </div>
   </div>
 
 
   <div class="container" style="margin-bottom:10px">
   <div class="row">
-    <div class="col" style="background-color:white;border:solid 2px; border-radius:5px;magin:10px;padding-top:10px;padding-bottom:10px;">
+    <div class="col-12 col-lg-7" style="background-color:white;border:solid 2px; border-radius:5px;magin:10px;padding-top:10px;padding-bottom:10px;">
       <div class="container">
         <h2>State-wise distribution</h2>
         <table class="table table-hover table-responsive table-sm table-borderless" style="font-size:0.9em" id="statetable">
@@ -75,10 +68,9 @@
         </tbody>
         </table>
       </div>
-
     </div>
 
-    <div class="col" style="background-color:white;border:solid 2px; border-radius:5px;padding-top:10px">
+    <div class="col-12 col-lg-5" style="background-color:white;border:solid 2px; border-radius:5px;padding-top:10px">
       <center><div>Heat Map for total cases</div><div id="grad">Low<---------->High</div>
       <div id="myChart" class="chart--container"></div></center>
 
@@ -163,5 +155,20 @@
       });
     }
   </script>
+
+  <div class="container p-2 rounded" style="background-color:white;margin-top:10px;margin-bottom:10px;border:2px solid;">
+    <div class="row text-center">
+      <div class="col my-auto">
+        <div>Developed by: Gaurav Kumar Singh</div>
+      </div>
+      <div class="col-auto my-auto">
+        <img class="rounded-circle" src="images/dev.jpg" height=50 width=50>
+      </div>
+      <div class="col my-auto">
+        <div><a href="https://www.linkedin.com/in/rajgaurav99/" target="_blank">Linkedin: rajgaurav99</a></div>
+      </div>
+    </div>
+  </div>
+
 </body>
 </html>

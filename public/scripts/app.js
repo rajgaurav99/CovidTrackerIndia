@@ -48,6 +48,7 @@
    })
    .catch(function (error) {
      console.log("Error in fetching the data from source");
+     console.log(error);
    });
   }
 

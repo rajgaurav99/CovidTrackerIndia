@@ -1,8 +1,8 @@
 body{
-  padding-top: 70px;
   background-image: url("../images/bg.jpg");
   font-family: 'Montserrat';
 }
+
 table.dataTable thead .sorting:after,
 table.dataTable thead .sorting:before,
 table.dataTable thead .sorting_asc:after,
@@ -19,6 +19,7 @@ bottom: .5em;
   margin-left:30;
   margin-right: 30;
   margin-bottom: 10;
+  margin-top: 10;
   border-radius: 25px;
   font-weight: bold;
   font-size: 1.2em;
