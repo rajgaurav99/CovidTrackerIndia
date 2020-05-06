@@ -2,6 +2,9 @@ body{
   background-image: url("../images/bg.jpg");
   font-family: 'Montserrat';
 }
+html,body{
+	overflow-x:hidden;
+}
 
 table.dataTable thead .sorting:after,
 table.dataTable thead .sorting:before,
@@ -16,14 +19,15 @@ table.dataTable thead .sorting_desc_disabled:before {
 bottom: .5em;
 }
 .summary_card{
-  margin-left:30;
-  margin-right: 30;
+  margin-left:10;
+  margin-right: 10;
   margin-bottom: 10;
   margin-top: 10;
   border-radius: 25px;
   font-weight: bold;
   font-size: 1.2em;
   border: solid 1px;
+  width: 100%;
 }
 /* cyrillic-ext */
 @font-face {
