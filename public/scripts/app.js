@@ -1,7 +1,29 @@
 (function () {
   'use strict';
-  angular.module("covid_tracker",[])
+  angular.module("covid_tracker",["ngRoute"])
+  .config(function($routeProvider,$locationProvider){
+    $locationProvider.html5Mode(true);
+    $routeProvider
+    .when("/", {
+        templateUrl : "main.html",
+        controller: "MainController as ctrl"
+    })
+    .when("/helpline", {
+        templateUrl : "helpline.html",
+        controller : "HelplineController as ctrl"
+    })
+    .otherwise({
+      templateUrl:"404.html"
+    });
+  })
   .controller("MainController",MainController)
+  .controller("HelplineController",HelplineController)
+  .component("covidnavbar",{
+    templateUrl:"/components/navbar.html"
+  })
+  .component("footer",{
+    templateUrl:"/components/footer.html"
+  });
 
   MainController.$inject=["CovidService"];
 
@@ -50,6 +72,24 @@
      console.log("Error in fetching the data from source");
      console.log(error);
    });
+  }
+
+  HelplineController.$inject=["CovidService"];
+  function HelplineController(CovidService){
+    var ctrl=this;
+    ctrl.loading=true;
+    var promise=CovidService.getcontactdata();
+    promise.then(function(response){
+      ctrl.loading=true;
+      ctrl.data_primary=response.data.contacts.primary;
+      ctrl.data_regional=response.data.contacts.regional;
+      ctrl.loading=false;
+    })
+    .catch(function (error) {
+      console.log("Error in fetching the data from source");
+      console.log(error);
+      ctrl.loading=false;
+    });
   }
 
 })();

@@ -16,5 +16,19 @@
           return result.data;
         });
       };
+
+
+      service.getcontactdata=function () {
+        return $http(
+          {
+            method:"GET",
+            url:"https://api.rootnet.in/covid19-in/contacts"
+          }
+        )
+        .then(function (result) {
+          return result.data;
+        });
+      };
+
     }
 })();

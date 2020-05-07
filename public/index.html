@@ -1,17 +1,22 @@
 <html ng-app="covid_tracker">
 <head><title>COVID-19 Tracker India</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <base href="/">
   <link rel="icon" href="/images/favicon.png">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
   <script type="text/javascript" src="/scripts/app.js"></script>
   <script type="text/javascript" src="/scripts/covid_service.js"></script>
   <script src="https://cdn.zingchart.com/zingchart.min.js"></script>
   <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
   <script src="/scripts/statelist.js"></script>
+
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="/css/main_style.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css"/>
   <style>
     .chart--container {
@@ -21,154 +26,13 @@
     }
   </style>
 </head>
-<body  ng-controller="MainController as ctrl">
-  <nav class="navbar navbar-light bg-light">
-  <a class="navbar-brand">COVID-19 Tracker INDIA</a>
-  <small>Updated on: {{ctrl.lastRefreshed}}</small>
-  </nav>
-  <div class="container">
-    <div class="row">
-      <div class="col summary_card" style="background-color:#fffb8f">
-        <center><img src="/images/virus.png" height=70 width=70><br>
-        Total Cases: {{ctrl.summary.total}}</center>
-      </div>
-      <div class="col summary_card" style="background-color:#b9ff6e">
-        <center><img src="/images/virus.png" height=70 width=70><br>
-        Total Recovered: {{ctrl.summary.discharged}}</center>
-      </div>
-      <div class="col summary_card" style="background-color:#ff9f8a">
-        <center><img src="/images/virus.png" height=70 width=70><br>
-        Total Deaths: {{ctrl.summary.deaths}}</center>
-      </div>
-    </div>
-  </div>
+<body>
+  <covidnavbar></covidnavbar>
 
+  <div ng-view></div>
 
-  <div class="container" style="margin-bottom:10px">
-  <div class="row">
-    <div class="col-12 col-lg-7" style="background-color:white;border:solid 2px; border-radius:5px;magin:10px;padding-top:10px;padding-bottom:10px;">
-      <div class="container">
-        <h2>State-wise distribution</h2>
-        <table class="table table-hover table-responsive table-sm table-borderless" style="font-size:0.9em" id="statetable">
-          <thead>
-          <tr>
-            <th bgcolor="#f2f7ff">State/UT</th>
-            <th bgcolor="#f2f7ff"><font color="#6eeb34">Rcvrd</font></th>
-            <th bgcolor="#f2f7ff"><font color="#ff0303">Dcsd</font></th>
-            <th bgcolor="#f2f7ff"><font color="#036cff">Cnfmd</font></th>
-          </tr>
-        </thead>
-        <tbody id="tablebody">
-          <tr ng-repeat="state in ctrl.coviddata">
-            <td>{{state.loc}}</td>
-            <td align="center">{{state.discharged}}</td>
-            <td align="center">{{state.deaths}}</td>
-            <td align="center">{{state.totalConfirmed}}</td>
-          </tr>
-        </tbody>
-        </table>
-      </div>
-    </div>
+  <footer></footer>
 
-    <div class="col-12 col-lg-5" style="background-color:white;border:solid 2px; border-radius:5px;padding-top:10px">
-      <center><div>Heat Map for total cases</div><div id="grad">Low<---------->High</div>
-      <div id="myChart" class="chart--container"></div></center>
-
-    </div>
-  </div>
-  </div>
-
-
-
-
-
-
-
-
-  <script type="text/javascript">
-    function show_map(statedata){
-      ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9", "b55b025e438fa8a98e32482b5f768ff5"];
-      let chartConfig = {
-        shapes: [{
-            type: 'zingchart.maps',
-            options: {
-              bbox: [67.177, 36.494, 98.403, 6.965], // get bbox from zingchart.maps.getItemInfo('world-countries','ind');
-              ignore: ['IND'], // ignore India because we are rendering a more specific India map below
-              name: 'world.countries',
-              panning: false, // turn of zooming. Doesn't work with bounding box
-              style: {
-                tooltip: {
-                  borderColor: '#000',
-                  borderWidth: '2px',
-                  fontSize: '18px'
-                },
-                controls: {
-                  visible: false // turn of zooming. Doesn't work with bounding box
-                },
-                hoverState: {
-                  alpha: .28
-                }
-              },
-              zooming: false // turn of zooming. Doesn't work with bounding box
-            }
-          },
-          {
-            type: 'zingchart.maps',
-            options: {
-              name: 'ind',
-              panning: false, // turn of zooming. Doesn't work with bounding box
-              zooming: false,
-              scrolling: false,
-              style: {
-                tooltip: {
-                  borderColor: '#000',
-                  borderWidth: '2px',
-                  fontSize: '18px'
-                },
-                borderColor: '#000',
-                borderWidth: '2px',
-                controls: {
-                  visible: false, // turn of zooming. Doesn't work with bounding box
-
-                },
-                hoverState: {
-                  alpha: .80
-                },
-                items: statedata,
-                label: { // text displaying. Like valueBox
-                  fontSize: '15px',
-                  visible: false
-                }
-              },
-              zooming: false // turn of zooming. Doesn't work with bounding box
-            }
-          }
-        ]
-      }
-
-      zingchart.loadModules('maps,maps-ind');
-      zingchart.render({
-        id: 'myChart',
-        data: chartConfig,
-        height: '90%',
-        width: '90%',
-      });
-    }
-  </script>
-
-  <div class="container p-2 rounded" style="background-color:white;margin-top:10px;margin-bottom:10px;border:2px solid;">
-    <div class="row text-center">
-      <div class="col my-auto">
-        <div>Developed by: Gaurav Kumar Singh</div>
-      </div>
-      <div class="col-auto my-auto">
-        <img class="rounded-circle" src="images/dev.jpg" height=50 width=50>
-      </div>
-      <div class="col my-auto">
-        <div><a href="https://www.linkedin.com/in/rajgaurav99/" target="_blank">Linkedin: rajgaurav99</a></div>
-      </div>
-    </div>
-  </div>
 
 </body>
 </html>

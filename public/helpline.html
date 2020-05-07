@@ -1,0 +1,56 @@
+
+
+  <div ng-if="ctrl.loading" class="container mx-auto my-auto" id="loading">
+    <div class="spinner-border text-info" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+
+<div class="container rounded p-2" style="background-color: white; border:2px solid">
+  <h2>Country Wide Contant Information</h2><hr>
+  <div class="row" nf-if="!ctrl.loading">
+    <div class="col-12 col-md-6">
+      <div>Phone Number:</div>
+      <div><h3><i class="fa fa-phone-square" ></i> {{ctrl.data_primary['number']}} </h3></div>
+    </div>
+    <div class="col-12 col-md-6">
+      <div>Toll Free Nummber:</div>
+      <div><h3><i class="fa fa-phone-square"></i> {{ctrl.data_primary['number-tollfree']}} </h3></div>
+    </div>
+    <div class="col-12 col-md-6">
+      <div>Email:</div>
+      <div><h3><i class="fa fa-envelope"></i> {{ctrl.data_primary['email']}} </h3></div>
+    </div>
+    <div class="col-12 col-md-6">
+      <div>Twitter:</div>
+      <div><h3><a href="{{ctrl.data_primary['twitter']}}" target="_blank"><i class="fa fa-twitter-square"></i> MoHFW India </a></h3></div>
+    </div>
+    <div class="col-12 col-md-6">
+      <div>Facebook:</div>
+      <div><h3><a href="{{ctrl.data_primary['facebook']}}" target="_blank"><i class="fa fa-facebook-square"></i> MoHFW India </a></h3></div>
+    </div>
+  </div>
+</div>
+
+  <br>
+<div class="container rounded p-2" style="background-color: white; border:2px solid">
+  <h2>State-wise Contact Information</h2><hr>
+  <div class="active-cyan-4 mb-4">
+    <input class="form-control" type="text" placeholder="Search" aria-label="Search" ng-model="search">
+  </div>
+  <table  nf-if="!ctrl.loading" class="table table-hover">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">State</th>
+        <th scope="col">Emergency Helpline Number</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><th colspan=2 ng-if="!filteredlist.length">No results found</th><tr>
+      <tr ng-repeat="state in ctrl.data_regional|filter: search as filteredlist">
+        <th scope="row">{{state.loc}}</th>
+        <td>{{state.number}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
