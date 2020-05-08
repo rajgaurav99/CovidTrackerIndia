@@ -2,6 +2,19 @@
   'use strict';
   angular.module("covid_tracker",["ngRoute"])
   .config(function($routeProvider,$locationProvider){
+	  var firebaseConfig = {
+		apiKey: "AIzaSyB87tHf5S780nAp9LaeMcDBFsch4aOjo-Y",
+		authDomain: "covid-19-tracker-2e275.firebaseapp.com",
+		databaseURL: "https://covid-19-tracker-2e275.firebaseio.com",
+		projectId: "covid-19-tracker-2e275",
+		storageBucket: "covid-19-tracker-2e275.appspot.com",
+		messagingSenderId: "383396418308",
+		appId: "1:383396418308:web:4cb0a3730de3934013f651",
+		measurementId: "G-NXBBCRF6PZ"
+	  };
+	  // Initialize Firebase
+	  firebase.initializeApp(firebaseConfig);
+	  firebase.analytics();
     $locationProvider.html5Mode(true);
     $routeProvider
     .when("/", {
