@@ -68,7 +68,7 @@
        };
      }
      document.getElementById("grad").style.backgroundImage = "linear-gradient(to right, rgba(255,99,71,0.2) , rgba(255,99,71,1))";
-     ctrl.summary=response.data.summary;
+     ctrl.summary=response.data["unofficial-summary"][0];
      var date=new Date(Date.parse(response.lastRefreshed))
      ctrl.lastRefreshed=date.toString();
      $(document).ready(function () {
