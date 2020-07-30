@@ -12,6 +12,10 @@
       <center><img src="/images/virus.png" height=70 width=70><br>
       Total Deaths: {{ctrl.summary.deaths}}</center>
     </div>
+    <div class="col summary_card" style="background-color:#33e8be">
+      <center><img src="/images/increase.png" height=70 width=70><br>
+      New Cases: {{ctrl.increase}}</center>
+    </div>
   </div>
 
   <small style="color:white">Last Updated: {{ctrl.lastRefreshed}}</small>
@@ -49,15 +53,14 @@
   <div class="col-12 col-lg-5" style="background-color:white;border:solid 2px; border-radius:5px;padding-top:10px">
     <center><div>Heat Map for total cases</div><div id="grad">Low<---------->High</div>
     <div id="myChart" class="chart--container"></div></center>
-
   </div>
+
+  <div class="col-12" style="background-color:white;border:solid 2px; border-radius:5px;padding-top:10px">
+    <div id="chartContainer" style="height: 300px; width: 100%;"></div>
+  </div>
+
 </div>
 </div>
-
-
-
-
-
 
 
 

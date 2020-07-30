@@ -30,5 +30,17 @@
         });
       };
 
+      service.getchartdata=function(){
+        return $http(
+          {
+            method:"GET",
+            url:"https://api.covid19india.org/data.json"
+          }
+        )
+        .then(function (result) {
+          return result.data;
+        });
+      };
+
     }
 })();

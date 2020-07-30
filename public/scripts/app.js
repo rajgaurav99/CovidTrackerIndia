@@ -85,6 +85,44 @@
      console.log("Error in fetching the data from source");
      console.log(error);
    });
+
+
+
+
+   var promise = CovidService.getchartdata();
+   promise.then(function(response){
+     var chartdata= [];
+
+     for(var i=0;i<response["cases_time_series"].length;i++){
+       var date_data=response["cases_time_series"][i];
+       chartdata.push({y: parseInt(date_data["dailyconfirmed"]), label: date_data["date"]})
+     }
+     ctrl.increase=parseInt(date_data["dailyconfirmed"]);
+     var chart = new CanvasJS.Chart("chartContainer", {
+    	animationEnabled: true,
+    	theme: "light2", // "light1", "light2", "dark1", "dark2"
+    	title:{
+    		text: "Increase in Covid-19 cases over time"
+    	},
+    	axisY: {
+    		title: "Number of Covid-19 Cases"
+    	},
+    	data: [{
+    		type: "column",
+    		showInLegend: true,
+    		legendMarkerColor: "black",
+    		legendText: "1 covid case",
+    		dataPoints: chartdata
+    	}]
+    });
+    chart.render();
+
+   })
+   .catch(function(error){
+     console.log("Error in fetching the data from source");
+     console.log(error);
+   });
+
   }
 
   HelplineController.$inject=["CovidService"];
