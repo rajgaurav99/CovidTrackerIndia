@@ -92,10 +92,14 @@
    var promise = CovidService.getchartdata();
    promise.then(function(response){
      var chartdata= [];
+     var deathdata= [];
+     var recovereddata= [];
 
      for(var i=0;i<response["cases_time_series"].length;i++){
        var date_data=response["cases_time_series"][i];
-       chartdata.push({y: parseInt(date_data["dailyconfirmed"]), label: date_data["date"]})
+       chartdata.push({y: parseInt(date_data["dailyconfirmed"]), label: date_data["date"]});
+       deathdata.push({y: parseInt(date_data["dailydeceased"]), label: date_data["date"]});
+       recovereddata.push({y: parseInt(date_data["dailyrecovered"]), label: date_data["date"]});
      }
      ctrl.increase=parseInt(date_data["dailyconfirmed"]);
      var chart = new CanvasJS.Chart("chartContainer", {
@@ -116,6 +120,44 @@
     	}]
     });
     chart.render();
+
+    var deathchart = new CanvasJS.Chart("deathchart", {
+     animationEnabled: true,
+     theme: "light2", // "light1", "light2", "dark1", "dark2"
+     title:{
+       text: "Increase in Covid-19 deaths over time"
+     },
+     axisY: {
+       title: "Number of Deaths due to Covid-19"
+     },
+     data: [{
+       type: "column",
+       showInLegend: true,
+       legendMarkerColor: "black",
+       legendText: "1 death",
+       dataPoints: deathdata
+     }]
+   });
+   deathchart.render();
+
+   var recoveredchart = new CanvasJS.Chart("recoveredchart", {
+    animationEnabled: true,
+    theme: "light2", // "light1", "light2", "dark1", "dark2"
+    title:{
+      text: "Increase in people recovered from Covid-19 over time"
+    },
+    axisY: {
+      title: "Number of Covid-19 recovered Cases"
+    },
+    data: [{
+      type: "column",
+      showInLegend: true,
+      legendMarkerColor: "black",
+      legendText: "1 recovered case",
+      dataPoints: recovereddata
+    }]
+  });
+  recoveredchart.render();
 
    })
    .catch(function(error){
