@@ -31,13 +31,11 @@
       };
 
       service.getchartdata=function(){
+        delete $http.defaults.headers.common['X-Requested-With'];
         return $http(
           {
             method:"GET",
-            url:"https://api.covid19india.org/data.json",
-            headers: {
-               'Access-Control-Allow-Origin': '*'
-             }
+            url:"https://api.covid19india.org/data.json"
           }
         )
         .then(function (result) {
