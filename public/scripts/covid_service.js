@@ -34,7 +34,10 @@
         return $http(
           {
             method:"GET",
-            url:"https://api.covid19india.org/data.json"
+            url:"https://api.covid19india.org/data.json",
+            headers: {
+               'Access-Control-Allow-Origin': '*'
+             }
           }
         )
         .then(function (result) {
