@@ -179,7 +179,7 @@
       ctrl.loading=false;
     })
     .catch(function (error) {
-      console.log("Error in fetching the data from source");
+      console.log("Error in fetching the data from source CORS error");
       console.log(error);
       ctrl.loading=false;
     });
