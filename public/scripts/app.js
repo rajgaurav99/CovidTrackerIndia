@@ -1,7 +1,9 @@
 (function () {
   'use strict';
   angular.module("covid_tracker",["ngRoute"])
-  .config(function($routeProvider,$locationProvider){
+  .config(function($routeProvider,$locationProvider,$httpProvider){
+	  $httpProvider.defaults.useXDomain = true;
+          delete $httpProvider.defaults.headers.common['X-Requested-With'];
 	  var firebaseConfig = {
 		apiKey: "AIzaSyB87tHf5S780nAp9LaeMcDBFsch4aOjo-Y",
 		authDomain: "covid-19-tracker-2e275.firebaseapp.com",
